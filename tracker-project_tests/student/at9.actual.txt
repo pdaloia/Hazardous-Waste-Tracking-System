@@ -1,0 +1,283 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(50,10)
+  state 1 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->undo
+  state 2 e19: there is no more to undo
+->redo
+  state 3 e20: there is no more to redo
+->undo
+  state 4 e19: there is no more to undo
+->redo
+  state 5 e20: there is no more to redo
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 6 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 7 (to 1) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->redo
+  state 8 (to 6) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 9 (to 1) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->redo
+  state 10 (to 6) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_tracker(50,10)
+  state 11 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 12 e19: there is no more to undo
+->redo
+  state 13 e20: there is no more to redo
+->undo
+  state 14 e19: there is no more to undo
+->redo
+  state 15 e20: there is no more to redo
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 16 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 17 (to 11) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 18 (to 16) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 19 (to 11) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 20 (to 16) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_container("cid4",[metal, 0],"pid1")
+  state 21 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->undo
+  state 22 (to 16) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 23 (to 21) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->undo
+  state 24 (to 16) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 25 (to 21) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 26 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 27 (to 21) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->redo
+  state 28 (to 26) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 29 (to 21) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->redo
+  state 30 (to 26) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->new_tracker(50,10)
+  state 31 e1: current tracker is in use
+->undo
+  state 32 (to 26) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 33 (to 31) e1: current tracker is in use
+->undo
+  state 34 (to 26) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 35 (to 31) e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 36 e18: this container radiation must not be negative
+->undo
+  state 37 (to 31) e1: current tracker is in use
+->redo
+  state 38 (to 36) e18: this container radiation must not be negative
+->undo
+  state 39 (to 31) e1: current tracker is in use
+->redo
+  state 40 (to 36) e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 41 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 42 (to 36) e18: this container radiation must not be negative
+->redo
+  state 43 (to 41) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 44 (to 36) e18: this container radiation must not be negative
+->redo
+  state 45 (to 41) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->move_container("cid4","pid1","pid2")
+  state 46 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,2,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid2->metal,0.00
+->undo
+  state 47 (to 41) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 48 (to 46) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,2,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid2->metal,0.00
+->undo
+  state 49 (to 41) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 50 (to 46) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,2,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid2->metal,0.00

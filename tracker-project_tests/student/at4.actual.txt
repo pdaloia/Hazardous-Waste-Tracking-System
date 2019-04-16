@@ -1,0 +1,132 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(40,30)
+  state 1 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_phase("pid1","compacting",1,<<glass, metal, plastic>>)
+  state 2 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid2","assay",3,<<glass, metal, plastic>>)
+  state 3 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,0,0.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid3","comp-ass",4,<<glass, liquid>>)
+  state 4 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,0,0.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,0,0.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid4","comp-ass2",2,<<glass, liquid>>)
+  state 5 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,0,0.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,0,0.00,{glass,liquid}
+    pid4->comp-ass2:2,0,0.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid5")
+  state 6 e9: phase identifier not in the system
+->remove_phase("pid4")
+  state 7 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,0,0.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,0,0.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+->new_container("cid1",[metal, 10.00000000001],"pid1")
+  state 8 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,1,10.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,0,0.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,10.00
+->new_container("cid2",[glass, 10],"pid3")
+  state 9 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,1,10.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,1,10.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,10.00
+    cid2->pid3->glass,10.00
+->new_container("cid3",[glass, 30],"pid3")
+  state 10 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,1,10.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,2,40.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,10.00
+    cid2->pid3->glass,10.00
+    cid3->pid3->glass,30.00
+->new_container("cid4",[liquid, 0],"pid3")
+  state 11 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,1,10.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,3,40.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,10.00
+    cid2->pid3->glass,10.00
+    cid3->pid3->glass,30.00
+    cid4->pid3->liquid,0.00
+->move_container("cid5","pid1","pid2")
+  state 12 e15: this container identifier not in tracker
+->move_container("cid1","pid1","pid1")
+  state 13 e16: source and target phase identifier must be different
+->move_container("cid1","pid1","Pid4")
+  state 14 e9: phase identifier not in the system
+->move_container("cid2","pid1","pid2")
+  state 15 e17: this container identifier is not in the source phase
+->move_container("cid3","pid3","pid1")
+  state 16 e11: this container will exceed phase capacity
+->move_container("cid3","pid3","pid2")
+  state 17 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,1,10.00,{glass,metal,plastic}
+    pid2->assay:3,1,30.00,{glass,metal,plastic}
+    pid3->comp-ass:4,2,10.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,10.00
+    cid2->pid3->glass,10.00
+    cid3->pid2->glass,30.00
+    cid4->pid3->liquid,0.00
+->move_container("cid1","pid1","pid2")
+  state 18 e12: this container will exceed phase safe radiation
+->move_container("cid4","pid3","pid2")
+  state 19 e13: phase does not expect this container material
+->remove_container("cid5")
+  state 20 e15: this container identifier not in tracker
+->remove_container("cid3")
+  state 21 ok
+  max_phase_radiation: 40.00, max_container_radiation: 30.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:1,1,10.00,{glass,metal,plastic}
+    pid2->assay:3,0,0.00,{glass,metal,plastic}
+    pid3->comp-ass:4,2,10.00,{glass,liquid}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->metal,10.00
+    cid2->pid3->glass,10.00
+    cid4->pid3->liquid,0.00
+->remove_phase("pid3")
+  state 22 e1: current tracker is in use

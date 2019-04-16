@@ -1,0 +1,32 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(39,39)
+  state 1 ok
+  max_phase_radiation: 39.00, max_container_radiation: 39.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_phase("pid3","compacting",2,<<glass, metal, plastic>>)
+  state 2 ok
+  max_phase_radiation: 39.00, max_container_radiation: 39.00
+  phases: pid->name:capacity,count,radiation
+    pid3->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_tracker(-1,0)
+  state 3 e2: max phase radiation must be non-negative value
+->new_tracker(1,-1)
+  state 4 e3: max container radiation must be non-negative value
+->new_tracker(0,2)
+  state 5 e4: max container must not be more than max phase radiation
+->new_container("cid4",[metal, 39],"pid3")
+  state 6 ok
+  max_phase_radiation: 39.00, max_container_radiation: 39.00
+  phases: pid->name:capacity,count,radiation
+    pid3->compacting:2,1,39.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid3->metal,39.00
+->new_tracker(39,10)
+  state 7 e1: current tracker is in use
+->new_phase("pid1","compacting",2,<<glass, metal, plastic>>)
+  state 8 e1: current tracker is in use

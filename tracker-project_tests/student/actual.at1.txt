@@ -1,0 +1,23 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(50,10)
+  state 1 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid1")
+  state 2 e9: phase identifier not in the system
+->remove_phase("pid4")
+  state 3 e9: phase identifier not in the system
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 4 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->remove_phase("pid1")
+  state 5 e9: phase identifier not in the system
+->remove_phase("pid4")
+  state 6 e9: phase identifier not in the system

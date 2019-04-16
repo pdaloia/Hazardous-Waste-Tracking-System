@@ -1,0 +1,1565 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->undo
+  state 1 e19: there is no more to undo
+->new_tracker(50,10)
+  state 2 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->undo
+  state 3 e19: there is no more to undo
+->redo
+  state 4 e20: there is no more to redo
+->redo
+  state 5 e20: there is no more to redo
+->redo
+  state 6 e20: there is no more to redo
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 7 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_tracker(50,10)
+  state 8 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 9 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_container("cid4",[metal, 0],"pid1")
+  state 10 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 11 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->new_tracker(50,10)
+  state 12 e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 13 e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 14 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 15 (to 13) e18: this container radiation must not be negative
+->undo
+  state 16 (to 12) e1: current tracker is in use
+->undo
+  state 17 (to 11) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 18 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->undo
+  state 19 (to 9) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 20 (to 8) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 21 (to 9) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 22 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->redo
+  state 23 (to 11) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 24 (to 12) e1: current tracker is in use
+->redo
+  state 25 (to 13) e18: this container radiation must not be negative
+->redo
+  state 26 (to 14) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 27 e20: there is no more to redo
+->redo
+  state 28 e20: there is no more to redo
+->redo
+  state 29 e20: there is no more to redo
+->redo
+  state 30 e20: there is no more to redo
+->redo
+  state 31 e20: there is no more to redo
+->redo
+  state 32 e20: there is no more to redo
+->redo
+  state 33 e20: there is no more to redo
+->redo
+  state 34 e20: there is no more to redo
+->undo
+  state 35 (to 13) e18: this container radiation must not be negative
+->redo
+  state 36 (to 14) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 37 (to 13) e18: this container radiation must not be negative
+->undo
+  state 38 (to 12) e1: current tracker is in use
+->undo
+  state 39 (to 11) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 40 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->new_tracker(40,4)
+  state 41 e1: current tracker is in use
+->new_phase("pid3","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 42 e1: current tracker is in use
+->new_container("cid6",[glass, 5.5],"pid3")
+  state 43 e9: phase identifier not in the system
+->move_container("cid1","pid1","pid2")
+  state 44 e15: this container identifier not in tracker
+->undo
+  state 45 (to 43) e9: phase identifier not in the system
+->undo
+  state 46 (to 42) e1: current tracker is in use
+->redo
+  state 47 (to 43) e9: phase identifier not in the system
+->redo
+  state 48 (to 44) e15: this container identifier not in tracker
+->redo
+  state 49 e20: there is no more to redo
+->redo
+  state 50 e20: there is no more to redo
+->redo
+  state 51 e20: there is no more to redo
+->redo
+  state 52 e20: there is no more to redo
+->redo
+  state 53 e20: there is no more to redo
+->redo
+  state 54 e20: there is no more to redo
+->redo
+  state 55 e20: there is no more to redo
+->redo
+  state 56 e20: there is no more to redo
+->redo
+  state 57 e20: there is no more to redo
+->redo
+  state 58 e20: there is no more to redo
+->redo
+  state 59 e20: there is no more to redo
+->redo
+  state 60 e20: there is no more to redo
+->undo
+  state 61 (to 43) e9: phase identifier not in the system
+->redo
+  state 62 (to 44) e15: this container identifier not in tracker
+->undo
+  state 63 (to 43) e9: phase identifier not in the system
+->undo
+  state 64 (to 42) e1: current tracker is in use
+->undo
+  state 65 (to 41) e1: current tracker is in use
+->undo
+  state 66 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->undo
+  state 67 (to 9) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->undo
+  state 68 (to 8) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 69 (to 9) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 70 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->redo
+  state 71 (to 41) e1: current tracker is in use
+->new_tracker(40,4)
+  state 72 e1: current tracker is in use
+->new_phase("pid41","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 73 e1: current tracker is in use
+->new_container("cid3",[glass, 5.5],"pid1")
+  state 74 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->move_container("cid1","pid1","pid2")
+  state 75 e15: this container identifier not in tracker
+->redo
+  state 76 e20: there is no more to redo
+->redo
+  state 77 e20: there is no more to redo
+->redo
+  state 78 e20: there is no more to redo
+->redo
+  state 79 e20: there is no more to redo
+->redo
+  state 80 e20: there is no more to redo
+->redo
+  state 81 e20: there is no more to redo
+->redo
+  state 82 e20: there is no more to redo
+->redo
+  state 83 e20: there is no more to redo
+->redo
+  state 84 e20: there is no more to redo
+->redo
+  state 85 e20: there is no more to redo
+->redo
+  state 86 e20: there is no more to redo
+->undo
+  state 87 (to 74) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 88 (to 73) e1: current tracker is in use
+->undo
+  state 89 (to 72) e1: current tracker is in use
+->undo
+  state 90 (to 41) e1: current tracker is in use
+->undo
+  state 91 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->undo
+  state 92 (to 9) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,0,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->redo
+  state 93 (to 10) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid4->pid1->metal,0.00
+->redo
+  state 94 (to 41) e1: current tracker is in use
+->redo
+  state 95 (to 72) e1: current tracker is in use
+->redo
+  state 96 (to 73) e1: current tracker is in use
+->new_tracker(50,10)
+  state 97 e1: current tracker is in use
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 98 e1: current tracker is in use
+->new_tracker(50,10)
+  state 99 e1: current tracker is in use
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 100 e1: current tracker is in use
+->new_container("cid4",[metal, 0],"pid1")
+  state 101 e10: this container identifier already in tracker
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 102 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->new_tracker(50,10)
+  state 103 e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 104 e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 105 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 106 (to 104) e18: this container radiation must not be negative
+->undo
+  state 107 (to 103) e1: current tracker is in use
+->undo
+  state 108 (to 102) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 109 (to 101) e10: this container identifier already in tracker
+->undo
+  state 110 (to 100) e1: current tracker is in use
+->undo
+  state 111 (to 99) e1: current tracker is in use
+->redo
+  state 112 (to 100) e1: current tracker is in use
+->redo
+  state 113 (to 101) e10: this container identifier already in tracker
+->redo
+  state 114 (to 102) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 115 (to 103) e1: current tracker is in use
+->redo
+  state 116 (to 104) e18: this container radiation must not be negative
+->redo
+  state 117 (to 105) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->redo
+  state 118 e20: there is no more to redo
+->redo
+  state 119 e20: there is no more to redo
+->redo
+  state 120 e20: there is no more to redo
+->redo
+  state 121 e20: there is no more to redo
+->redo
+  state 122 e20: there is no more to redo
+->redo
+  state 123 e20: there is no more to redo
+->redo
+  state 124 e20: there is no more to redo
+->redo
+  state 125 e20: there is no more to redo
+->undo
+  state 126 (to 104) e18: this container radiation must not be negative
+->redo
+  state 127 (to 105) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,0.00,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,5.50,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid2->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 128 (to 104) e18: this container radiation must not be negative
+->undo
+  state 129 (to 103) e1: current tracker is in use
+->undo
+  state 130 (to 102) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid1->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->undo
+  state 131 (to 101) e10: this container identifier already in tracker
+->new_tracker(40,4)
+  state 132 e1: current tracker is in use
+->new_phase("pid3","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 133 e1: current tracker is in use
+->new_container("cid6",[glass, 5.5],"pid3")
+  state 134 e9: phase identifier not in the system
+->move_container("cid1","pid1","pid2")
+  state 135 e15: this container identifier not in tracker
+->undo
+  state 136 (to 134) e9: phase identifier not in the system
+->undo
+  state 137 (to 133) e1: current tracker is in use
+->redo
+  state 138 (to 134) e9: phase identifier not in the system
+->redo
+  state 139 (to 135) e15: this container identifier not in tracker
+->redo
+  state 140 e20: there is no more to redo
+->redo
+  state 141 e20: there is no more to redo
+->redo
+  state 142 e20: there is no more to redo
+->redo
+  state 143 e20: there is no more to redo
+->redo
+  state 144 e20: there is no more to redo
+->redo
+  state 145 e20: there is no more to redo
+->redo
+  state 146 e20: there is no more to redo
+->redo
+  state 147 e20: there is no more to redo
+->redo
+  state 148 e20: there is no more to redo
+->redo
+  state 149 e20: there is no more to redo
+->redo
+  state 150 e20: there is no more to redo
+->redo
+  state 151 e20: there is no more to redo
+->undo
+  state 152 (to 134) e9: phase identifier not in the system
+->redo
+  state 153 (to 135) e15: this container identifier not in tracker
+->undo
+  state 154 (to 134) e9: phase identifier not in the system
+->undo
+  state 155 (to 133) e1: current tracker is in use
+->undo
+  state 156 (to 132) e1: current tracker is in use
+->undo
+  state 157 (to 101) e10: this container identifier already in tracker
+->undo
+  state 158 (to 100) e1: current tracker is in use
+->undo
+  state 159 (to 99) e1: current tracker is in use
+->redo
+  state 160 (to 100) e1: current tracker is in use
+->redo
+  state 161 (to 101) e10: this container identifier already in tracker
+->redo
+  state 162 (to 132) e1: current tracker is in use
+->new_tracker(40,4)
+  state 163 e1: current tracker is in use
+->new_phase("pid41","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 164 e1: current tracker is in use
+->new_container("cid3",[glass, 5.5],"pid1")
+  state 165 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,2,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+    cid4->pid1->metal,0.00
+->move_container("cid1","pid1","pid2")
+  state 166 e15: this container identifier not in tracker
+->redo
+  state 167 e20: there is no more to redo
+->redo
+  state 168 e20: there is no more to redo
+->redo
+  state 169 e20: there is no more to redo
+->redo
+  state 170 e20: there is no more to redo
+->redo
+  state 171 e20: there is no more to redo
+->redo
+  state 172 e20: there is no more to redo
+->redo
+  state 173 e20: there is no more to redo
+->new_tracker(50,10)
+  state 174 e1: current tracker is in use
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 175 e1: current tracker is in use
+->new_tracker(50,10)
+  state 176 e1: current tracker is in use
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 177 e1: current tracker is in use
+->new_container("cid4",[metal, 0],"pid1")
+  state 178 e10: this container identifier already in tracker
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 179 e11: this container will exceed phase capacity
+->new_tracker(50,10)
+  state 180 e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 181 e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 182 e15: this container identifier not in tracker
+->undo
+  state 183 (to 181) e18: this container radiation must not be negative
+->undo
+  state 184 (to 180) e1: current tracker is in use
+->undo
+  state 185 (to 179) e11: this container will exceed phase capacity
+->undo
+  state 186 (to 178) e10: this container identifier already in tracker
+->undo
+  state 187 (to 177) e1: current tracker is in use
+->undo
+  state 188 (to 176) e1: current tracker is in use
+->redo
+  state 189 (to 177) e1: current tracker is in use
+->redo
+  state 190 (to 178) e10: this container identifier already in tracker
+->redo
+  state 191 (to 179) e11: this container will exceed phase capacity
+->redo
+  state 192 (to 180) e1: current tracker is in use
+->redo
+  state 193 (to 181) e18: this container radiation must not be negative
+->redo
+  state 194 (to 182) e15: this container identifier not in tracker
+->redo
+  state 195 e20: there is no more to redo
+->redo
+  state 196 e20: there is no more to redo
+->redo
+  state 197 e20: there is no more to redo
+->redo
+  state 198 e20: there is no more to redo
+->redo
+  state 199 e20: there is no more to redo
+->redo
+  state 200 e20: there is no more to redo
+->redo
+  state 201 e20: there is no more to redo
+->redo
+  state 202 e20: there is no more to redo
+->undo
+  state 203 (to 181) e18: this container radiation must not be negative
+->redo
+  state 204 (to 182) e15: this container identifier not in tracker
+->undo
+  state 205 (to 181) e18: this container radiation must not be negative
+->undo
+  state 206 (to 180) e1: current tracker is in use
+->undo
+  state 207 (to 179) e11: this container will exceed phase capacity
+->undo
+  state 208 (to 178) e10: this container identifier already in tracker
+->new_tracker(40,4)
+  state 209 e1: current tracker is in use
+->new_phase("pid3","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 210 e1: current tracker is in use
+->new_container("cid6",[glass, 5.5],"pid3")
+  state 211 e9: phase identifier not in the system
+->move_container("cid1","pid1","pid2")
+  state 212 e15: this container identifier not in tracker
+->undo
+  state 213 (to 211) e9: phase identifier not in the system
+->undo
+  state 214 (to 210) e1: current tracker is in use
+->redo
+  state 215 (to 211) e9: phase identifier not in the system
+->redo
+  state 216 (to 212) e15: this container identifier not in tracker
+->redo
+  state 217 e20: there is no more to redo
+->redo
+  state 218 e20: there is no more to redo
+->redo
+  state 219 e20: there is no more to redo
+->redo
+  state 220 e20: there is no more to redo
+->redo
+  state 221 e20: there is no more to redo
+->redo
+  state 222 e20: there is no more to redo
+->redo
+  state 223 e20: there is no more to redo
+->redo
+  state 224 e20: there is no more to redo
+->redo
+  state 225 e20: there is no more to redo
+->redo
+  state 226 e20: there is no more to redo
+->redo
+  state 227 e20: there is no more to redo
+->redo
+  state 228 e20: there is no more to redo
+->undo
+  state 229 (to 211) e9: phase identifier not in the system
+->redo
+  state 230 (to 212) e15: this container identifier not in tracker
+->undo
+  state 231 (to 211) e9: phase identifier not in the system
+->undo
+  state 232 (to 210) e1: current tracker is in use
+->undo
+  state 233 (to 209) e1: current tracker is in use
+->undo
+  state 234 (to 178) e10: this container identifier already in tracker
+->undo
+  state 235 (to 177) e1: current tracker is in use
+->undo
+  state 236 (to 176) e1: current tracker is in use
+->redo
+  state 237 (to 177) e1: current tracker is in use
+->redo
+  state 238 (to 178) e10: this container identifier already in tracker
+->redo
+  state 239 (to 209) e1: current tracker is in use
+->new_tracker(40,4)
+  state 240 e1: current tracker is in use
+->new_phase("pid41","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 241 e1: current tracker is in use
+->new_container("cid3",[glass, 5.5],"pid1")
+  state 242 e10: this container identifier already in tracker
+->move_container("cid1","pid1","pid2")
+  state 243 e15: this container identifier not in tracker
+->redo
+  state 244 e20: there is no more to redo
+->redo
+  state 245 e20: there is no more to redo
+->redo
+  state 246 e20: there is no more to redo
+->redo
+  state 247 e20: there is no more to redo
+->redo
+  state 248 e20: there is no more to redo
+->redo
+  state 249 e20: there is no more to redo
+->redo
+  state 250 e20: there is no more to redo
+->new_tracker(50,10)
+  state 251 e1: current tracker is in use
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 252 e1: current tracker is in use
+->new_tracker(50,10)
+  state 253 e1: current tracker is in use
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 254 e1: current tracker is in use
+->new_container("cid4",[metal, 0],"pid1")
+  state 255 e10: this container identifier already in tracker
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 256 e11: this container will exceed phase capacity
+->new_tracker(50,10)
+  state 257 e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 258 e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 259 e15: this container identifier not in tracker
+->undo
+  state 260 (to 258) e18: this container radiation must not be negative
+->undo
+  state 261 (to 257) e1: current tracker is in use
+->undo
+  state 262 (to 256) e11: this container will exceed phase capacity
+->undo
+  state 263 (to 255) e10: this container identifier already in tracker
+->undo
+  state 264 (to 254) e1: current tracker is in use
+->undo
+  state 265 (to 253) e1: current tracker is in use
+->redo
+  state 266 (to 254) e1: current tracker is in use
+->redo
+  state 267 (to 255) e10: this container identifier already in tracker
+->redo
+  state 268 (to 256) e11: this container will exceed phase capacity
+->redo
+  state 269 (to 257) e1: current tracker is in use
+->redo
+  state 270 (to 258) e18: this container radiation must not be negative
+->redo
+  state 271 (to 259) e15: this container identifier not in tracker
+->redo
+  state 272 e20: there is no more to redo
+->redo
+  state 273 e20: there is no more to redo
+->redo
+  state 274 e20: there is no more to redo
+->redo
+  state 275 e20: there is no more to redo
+->redo
+  state 276 e20: there is no more to redo
+->redo
+  state 277 e20: there is no more to redo
+->redo
+  state 278 e20: there is no more to redo
+->redo
+  state 279 e20: there is no more to redo
+->undo
+  state 280 (to 258) e18: this container radiation must not be negative
+->redo
+  state 281 (to 259) e15: this container identifier not in tracker
+->undo
+  state 282 (to 258) e18: this container radiation must not be negative
+->undo
+  state 283 (to 257) e1: current tracker is in use
+->undo
+  state 284 (to 256) e11: this container will exceed phase capacity
+->undo
+  state 285 (to 255) e10: this container identifier already in tracker
+->new_tracker(40,4)
+  state 286 e1: current tracker is in use
+->new_phase("pid3","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 287 e1: current tracker is in use
+->new_container("cid6",[glass, 5.5],"pid3")
+  state 288 e9: phase identifier not in the system
+->move_container("cid1","pid1","pid2")
+  state 289 e15: this container identifier not in tracker
+->undo
+  state 290 (to 288) e9: phase identifier not in the system
+->undo
+  state 291 (to 287) e1: current tracker is in use
+->redo
+  state 292 (to 288) e9: phase identifier not in the system
+->redo
+  state 293 (to 289) e15: this container identifier not in tracker
+->redo
+  state 294 e20: there is no more to redo
+->redo
+  state 295 e20: there is no more to redo
+->redo
+  state 296 e20: there is no more to redo
+->redo
+  state 297 e20: there is no more to redo
+->redo
+  state 298 e20: there is no more to redo
+->redo
+  state 299 e20: there is no more to redo
+->redo
+  state 300 e20: there is no more to redo
+->redo
+  state 301 e20: there is no more to redo
+->redo
+  state 302 e20: there is no more to redo
+->redo
+  state 303 e20: there is no more to redo
+->redo
+  state 304 e20: there is no more to redo
+->redo
+  state 305 e20: there is no more to redo
+->undo
+  state 306 (to 288) e9: phase identifier not in the system
+->redo
+  state 307 (to 289) e15: this container identifier not in tracker
+->undo
+  state 308 (to 288) e9: phase identifier not in the system
+->undo
+  state 309 (to 287) e1: current tracker is in use
+->undo
+  state 310 (to 286) e1: current tracker is in use
+->undo
+  state 311 (to 255) e10: this container identifier already in tracker
+->undo
+  state 312 (to 254) e1: current tracker is in use
+->undo
+  state 313 (to 253) e1: current tracker is in use
+->redo
+  state 314 (to 254) e1: current tracker is in use
+->redo
+  state 315 (to 255) e10: this container identifier already in tracker
+->redo
+  state 316 (to 286) e1: current tracker is in use
+->new_tracker(40,4)
+  state 317 e1: current tracker is in use
+->new_phase("pid41","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 318 e1: current tracker is in use
+->new_container("cid3",[glass, 5.5],"pid1")
+  state 319 e10: this container identifier already in tracker
+->move_container("cid1","pid1","pid2")
+  state 320 e15: this container identifier not in tracker
+->redo
+  state 321 e20: there is no more to redo
+->redo
+  state 322 e20: there is no more to redo
+->redo
+  state 323 e20: there is no more to redo
+->redo
+  state 324 e20: there is no more to redo
+->redo
+  state 325 e20: there is no more to redo
+->redo
+  state 326 e20: there is no more to redo
+->redo
+  state 327 e20: there is no more to redo
+->new_tracker(50,10)
+  state 328 e1: current tracker is in use
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 329 e1: current tracker is in use
+->new_tracker(50,10)
+  state 330 e1: current tracker is in use
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 331 e1: current tracker is in use
+->new_container("cid4",[metal, 0],"pid1")
+  state 332 e10: this container identifier already in tracker
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 333 e11: this container will exceed phase capacity
+->new_tracker(50,10)
+  state 334 e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 335 e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 336 e15: this container identifier not in tracker
+->undo
+  state 337 (to 335) e18: this container radiation must not be negative
+->undo
+  state 338 (to 334) e1: current tracker is in use
+->undo
+  state 339 (to 333) e11: this container will exceed phase capacity
+->undo
+  state 340 (to 332) e10: this container identifier already in tracker
+->undo
+  state 341 (to 331) e1: current tracker is in use
+->undo
+  state 342 (to 330) e1: current tracker is in use
+->redo
+  state 343 (to 331) e1: current tracker is in use
+->redo
+  state 344 (to 332) e10: this container identifier already in tracker
+->redo
+  state 345 (to 333) e11: this container will exceed phase capacity
+->redo
+  state 346 (to 334) e1: current tracker is in use
+->redo
+  state 347 (to 335) e18: this container radiation must not be negative
+->redo
+  state 348 (to 336) e15: this container identifier not in tracker
+->redo
+  state 349 e20: there is no more to redo
+->redo
+  state 350 e20: there is no more to redo
+->redo
+  state 351 e20: there is no more to redo
+->redo
+  state 352 e20: there is no more to redo
+->redo
+  state 353 e20: there is no more to redo
+->redo
+  state 354 e20: there is no more to redo
+->redo
+  state 355 e20: there is no more to redo
+->redo
+  state 356 e20: there is no more to redo
+->undo
+  state 357 (to 335) e18: this container radiation must not be negative
+->redo
+  state 358 (to 336) e15: this container identifier not in tracker
+->undo
+  state 359 (to 335) e18: this container radiation must not be negative
+->undo
+  state 360 (to 334) e1: current tracker is in use
+->undo
+  state 361 (to 333) e11: this container will exceed phase capacity
+->undo
+  state 362 (to 332) e10: this container identifier already in tracker
+->new_tracker(40,4)
+  state 363 e1: current tracker is in use
+->new_phase("pid3","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 364 e1: current tracker is in use
+->new_container("cid6",[glass, 5.5],"pid3")
+  state 365 e9: phase identifier not in the system
+->move_container("cid1","pid1","pid2")
+  state 366 e15: this container identifier not in tracker
+->undo
+  state 367 (to 365) e9: phase identifier not in the system
+->undo
+  state 368 (to 364) e1: current tracker is in use
+->redo
+  state 369 (to 365) e9: phase identifier not in the system
+->redo
+  state 370 (to 366) e15: this container identifier not in tracker
+->redo
+  state 371 e20: there is no more to redo
+->redo
+  state 372 e20: there is no more to redo
+->redo
+  state 373 e20: there is no more to redo
+->redo
+  state 374 e20: there is no more to redo
+->redo
+  state 375 e20: there is no more to redo
+->redo
+  state 376 e20: there is no more to redo
+->redo
+  state 377 e20: there is no more to redo
+->redo
+  state 378 e20: there is no more to redo
+->redo
+  state 379 e20: there is no more to redo
+->redo
+  state 380 e20: there is no more to redo
+->redo
+  state 381 e20: there is no more to redo
+->redo
+  state 382 e20: there is no more to redo
+->undo
+  state 383 (to 365) e9: phase identifier not in the system
+->redo
+  state 384 (to 366) e15: this container identifier not in tracker
+->undo
+  state 385 (to 365) e9: phase identifier not in the system
+->undo
+  state 386 (to 364) e1: current tracker is in use
+->undo
+  state 387 (to 363) e1: current tracker is in use
+->undo
+  state 388 (to 332) e10: this container identifier already in tracker
+->undo
+  state 389 (to 331) e1: current tracker is in use
+->undo
+  state 390 (to 330) e1: current tracker is in use
+->redo
+  state 391 (to 331) e1: current tracker is in use
+->redo
+  state 392 (to 332) e10: this container identifier already in tracker
+->redo
+  state 393 (to 363) e1: current tracker is in use
+->new_tracker(40,4)
+  state 394 e1: current tracker is in use
+->new_phase("pid41","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 395 e1: current tracker is in use
+->new_container("cid3",[glass, 5.5],"pid1")
+  state 396 e10: this container identifier already in tracker
+->move_container("cid1","pid1","pid2")
+  state 397 e15: this container identifier not in tracker
+->redo
+  state 398 e20: there is no more to redo
+->redo
+  state 399 e20: there is no more to redo
+->redo
+  state 400 e20: there is no more to redo
+->redo
+  state 401 e20: there is no more to redo
+->redo
+  state 402 e20: there is no more to redo
+->redo
+  state 403 e20: there is no more to redo
+->redo
+  state 404 e20: there is no more to redo
+->new_tracker(50,10)
+  state 405 e1: current tracker is in use
+->new_phase("pid2","compacting",2,<<glass, metal, plastic>>)
+  state 406 e1: current tracker is in use
+->new_tracker(50,10)
+  state 407 e1: current tracker is in use
+->new_phase("pid1","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 408 e1: current tracker is in use
+->new_container("cid4",[metal, 0],"pid1")
+  state 409 e10: this container identifier already in tracker
+->new_container("cid1",[glass, 5.5],"pid1")
+  state 410 e11: this container will exceed phase capacity
+->new_tracker(50,10)
+  state 411 e1: current tracker is in use
+->new_container("cid2",[liquid, -0.5],"pid1")
+  state 412 e18: this container radiation must not be negative
+->move_container("cid1","pid1","pid2")
+  state 413 e15: this container identifier not in tracker
+->undo
+  state 414 (to 412) e18: this container radiation must not be negative
+->undo
+  state 415 (to 411) e1: current tracker is in use
+->undo
+  state 416 (to 410) e11: this container will exceed phase capacity
+->undo
+  state 417 (to 409) e10: this container identifier already in tracker
+->undo
+  state 418 (to 408) e1: current tracker is in use
+->undo
+  state 419 (to 407) e1: current tracker is in use
+->redo
+  state 420 (to 408) e1: current tracker is in use
+->redo
+  state 421 (to 409) e10: this container identifier already in tracker
+->redo
+  state 422 (to 410) e11: this container will exceed phase capacity
+->redo
+  state 423 (to 411) e1: current tracker is in use
+->redo
+  state 424 (to 412) e18: this container radiation must not be negative
+->redo
+  state 425 (to 413) e15: this container identifier not in tracker
+->redo
+  state 426 e20: there is no more to redo
+->redo
+  state 427 e20: there is no more to redo
+->redo
+  state 428 e20: there is no more to redo
+->redo
+  state 429 e20: there is no more to redo
+->redo
+  state 430 e20: there is no more to redo
+->redo
+  state 431 e20: there is no more to redo
+->redo
+  state 432 e20: there is no more to redo
+->redo
+  state 433 e20: there is no more to redo
+->undo
+  state 434 (to 412) e18: this container radiation must not be negative
+->redo
+  state 435 (to 413) e15: this container identifier not in tracker
+->undo
+  state 436 (to 412) e18: this container radiation must not be negative
+->undo
+  state 437 (to 411) e1: current tracker is in use
+->undo
+  state 438 (to 410) e11: this container will exceed phase capacity
+->undo
+  state 439 (to 409) e10: this container identifier already in tracker
+->new_tracker(40,4)
+  state 440 e1: current tracker is in use
+->new_phase("pid3","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 441 e1: current tracker is in use
+->new_container("cid6",[glass, 5.5],"pid3")
+  state 442 e9: phase identifier not in the system
+->move_container("cid1","pid1","pid2")
+  state 443 e15: this container identifier not in tracker
+->undo
+  state 444 (to 442) e9: phase identifier not in the system
+->undo
+  state 445 (to 441) e1: current tracker is in use
+->redo
+  state 446 (to 442) e9: phase identifier not in the system
+->redo
+  state 447 (to 443) e15: this container identifier not in tracker
+->redo
+  state 448 e20: there is no more to redo
+->redo
+  state 449 e20: there is no more to redo
+->redo
+  state 450 e20: there is no more to redo
+->redo
+  state 451 e20: there is no more to redo
+->redo
+  state 452 e20: there is no more to redo
+->redo
+  state 453 e20: there is no more to redo
+->redo
+  state 454 e20: there is no more to redo
+->redo
+  state 455 e20: there is no more to redo
+->redo
+  state 456 e20: there is no more to redo
+->redo
+  state 457 e20: there is no more to redo
+->redo
+  state 458 e20: there is no more to redo
+->redo
+  state 459 e20: there is no more to redo
+->undo
+  state 460 (to 442) e9: phase identifier not in the system
+->redo
+  state 461 (to 443) e15: this container identifier not in tracker
+->undo
+  state 462 (to 442) e9: phase identifier not in the system
+->undo
+  state 463 (to 441) e1: current tracker is in use
+->undo
+  state 464 (to 440) e1: current tracker is in use
+->undo
+  state 465 (to 409) e10: this container identifier already in tracker
+->undo
+  state 466 (to 408) e1: current tracker is in use
+->undo
+  state 467 (to 407) e1: current tracker is in use
+->redo
+  state 468 (to 408) e1: current tracker is in use
+->redo
+  state 469 (to 409) e10: this container identifier already in tracker
+->redo
+  state 470 (to 440) e1: current tracker is in use
+->new_tracker(40,4)
+  state 471 e1: current tracker is in use
+->new_phase("pid41","unpacking",2,<<glass, metal, plastic, liquid>>)
+  state 472 e1: current tracker is in use
+->new_container("cid3",[glass, 5.5],"pid1")
+  state 473 e10: this container identifier already in tracker
+->move_container("cid1","pid1","pid2")
+  state 474 e15: this container identifier not in tracker
+->redo
+  state 475 e20: there is no more to redo
+->redo
+  state 476 e20: there is no more to redo
+->redo
+  state 477 e20: there is no more to redo
+->redo
+  state 478 e20: there is no more to redo
+->redo
+  state 479 e20: there is no more to redo
+->redo
+  state 480 e20: there is no more to redo
+->redo
+  state 481 e20: there is no more to redo
+->redo
+  state 482 e20: there is no more to redo
+->redo
+  state 483 e20: there is no more to redo
+->redo
+  state 484 e20: there is no more to redo
+->redo
+  state 485 e20: there is no more to redo
+->redo
+  state 486 e20: there is no more to redo
+->redo
+  state 487 e20: there is no more to redo
+->redo
+  state 488 e20: there is no more to redo
+->redo
+  state 489 e20: there is no more to redo
+->redo
+  state 490 e20: there is no more to redo
+->redo
+  state 491 e20: there is no more to redo
+->undo
+  state 492 (to 473) e10: this container identifier already in tracker
+->redo
+  state 493 (to 474) e15: this container identifier not in tracker
+->undo
+  state 494 (to 473) e10: this container identifier already in tracker
+->undo
+  state 495 (to 472) e1: current tracker is in use
+->undo
+  state 496 (to 471) e1: current tracker is in use
+->undo
+  state 497 (to 440) e1: current tracker is in use
+->undo
+  state 498 (to 409) e10: this container identifier already in tracker
+->undo
+  state 499 (to 408) e1: current tracker is in use
+->redo
+  state 500 (to 409) e10: this container identifier already in tracker
+->redo
+  state 501 (to 440) e1: current tracker is in use
+->redo
+  state 502 (to 471) e1: current tracker is in use
+->redo
+  state 503 (to 472) e1: current tracker is in use
+->redo
+  state 504 (to 473) e10: this container identifier already in tracker
+->redo
+  state 505 (to 474) e15: this container identifier not in tracker
+->redo
+  state 506 e20: there is no more to redo
+->redo
+  state 507 e20: there is no more to redo
+->redo
+  state 508 e20: there is no more to redo
+->undo
+  state 509 (to 473) e10: this container identifier already in tracker
+->undo
+  state 510 (to 472) e1: current tracker is in use
+->undo
+  state 511 (to 471) e1: current tracker is in use
+->undo
+  state 512 (to 440) e1: current tracker is in use
+->undo
+  state 513 (to 409) e10: this container identifier already in tracker
+->undo
+  state 514 (to 408) e1: current tracker is in use
+->redo
+  state 515 (to 409) e10: this container identifier already in tracker
+->redo
+  state 516 (to 440) e1: current tracker is in use
+->redo
+  state 517 (to 471) e1: current tracker is in use
+->redo
+  state 518 (to 472) e1: current tracker is in use
+->redo
+  state 519 (to 473) e10: this container identifier already in tracker
+->redo
+  state 520 (to 474) e15: this container identifier not in tracker
+->redo
+  state 521 e20: there is no more to redo
+->redo
+  state 522 e20: there is no more to redo
+->redo
+  state 523 e20: there is no more to redo
+->redo
+  state 524 e20: there is no more to redo
+->redo
+  state 525 e20: there is no more to redo
+->redo
+  state 526 e20: there is no more to redo
+->redo
+  state 527 e20: there is no more to redo
+->redo
+  state 528 e20: there is no more to redo
+->undo
+  state 529 (to 473) e10: this container identifier already in tracker
+->redo
+  state 530 (to 474) e15: this container identifier not in tracker
+->undo
+  state 531 (to 473) e10: this container identifier already in tracker
+->undo
+  state 532 (to 472) e1: current tracker is in use
+->move_container("cid1","pid1","pid2")
+  state 533 e15: this container identifier not in tracker
+->redo
+  state 534 e20: there is no more to redo
+->redo
+  state 535 e20: there is no more to redo
+->redo
+  state 536 e20: there is no more to redo
+->redo
+  state 537 e20: there is no more to redo
+->redo
+  state 538 e20: there is no more to redo
+->redo
+  state 539 e20: there is no more to redo
+->redo
+  state 540 e20: there is no more to redo
+->redo
+  state 541 e20: there is no more to redo
+->redo
+  state 542 e20: there is no more to redo
+->redo
+  state 543 e20: there is no more to redo
+->redo
+  state 544 e20: there is no more to redo
+->undo
+  state 545 (to 472) e1: current tracker is in use
+->undo
+  state 546 (to 471) e1: current tracker is in use
+->undo
+  state 547 (to 440) e1: current tracker is in use
+->undo
+  state 548 (to 409) e10: this container identifier already in tracker
+->undo
+  state 549 (to 408) e1: current tracker is in use
+->undo
+  state 550 (to 407) e1: current tracker is in use
+->redo
+  state 551 (to 408) e1: current tracker is in use
+->redo
+  state 552 (to 409) e10: this container identifier already in tracker
+->redo
+  state 553 (to 440) e1: current tracker is in use
+->redo
+  state 554 (to 471) e1: current tracker is in use
+->redo
+  state 555 (to 472) e1: current tracker is in use
+->redo
+  state 556 (to 533) e15: this container identifier not in tracker
+->redo
+  state 557 e20: there is no more to redo
+->redo
+  state 558 e20: there is no more to redo
+->redo
+  state 559 e20: there is no more to redo
+->redo
+  state 560 e20: there is no more to redo
+->redo
+  state 561 e20: there is no more to redo
+->redo
+  state 562 e20: there is no more to redo
+->redo
+  state 563 e20: there is no more to redo
+->redo
+  state 564 e20: there is no more to redo
+->undo
+  state 565 (to 472) e1: current tracker is in use
+->redo
+  state 566 (to 533) e15: this container identifier not in tracker
+->undo
+  state 567 (to 472) e1: current tracker is in use
+->undo
+  state 568 (to 471) e1: current tracker is in use
+->undo
+  state 569 (to 440) e1: current tracker is in use
+->undo
+  state 570 (to 409) e10: this container identifier already in tracker
+->undo
+  state 571 (to 408) e1: current tracker is in use
+->undo
+  state 572 (to 407) e1: current tracker is in use
+->redo
+  state 573 (to 408) e1: current tracker is in use
+->redo
+  state 574 (to 409) e10: this container identifier already in tracker
+->redo
+  state 575 (to 440) e1: current tracker is in use
+->redo
+  state 576 (to 471) e1: current tracker is in use
+->redo
+  state 577 (to 472) e1: current tracker is in use
+->redo
+  state 578 (to 533) e15: this container identifier not in tracker
+->redo
+  state 579 e20: there is no more to redo
+->redo
+  state 580 e20: there is no more to redo
+->redo
+  state 581 e20: there is no more to redo
+->undo
+  state 582 (to 472) e1: current tracker is in use
+->undo
+  state 583 (to 471) e1: current tracker is in use
+->undo
+  state 584 (to 440) e1: current tracker is in use
+->undo
+  state 585 (to 409) e10: this container identifier already in tracker
+->undo
+  state 586 (to 408) e1: current tracker is in use
+->undo
+  state 587 (to 407) e1: current tracker is in use
+->redo
+  state 588 (to 408) e1: current tracker is in use
+->redo
+  state 589 (to 409) e10: this container identifier already in tracker
+->redo
+  state 590 (to 440) e1: current tracker is in use
+->redo
+  state 591 (to 471) e1: current tracker is in use
+->redo
+  state 592 (to 472) e1: current tracker is in use
+->redo
+  state 593 (to 533) e15: this container identifier not in tracker
+->redo
+  state 594 e20: there is no more to redo
+->redo
+  state 595 e20: there is no more to redo
+->redo
+  state 596 e20: there is no more to redo
+->redo
+  state 597 e20: there is no more to redo
+->redo
+  state 598 e20: there is no more to redo
+->redo
+  state 599 e20: there is no more to redo
+->redo
+  state 600 e20: there is no more to redo
+->redo
+  state 601 e20: there is no more to redo
+->undo
+  state 602 (to 472) e1: current tracker is in use
+->redo
+  state 603 (to 533) e15: this container identifier not in tracker
+->undo
+  state 604 (to 472) e1: current tracker is in use
+->undo
+  state 605 (to 471) e1: current tracker is in use
+->undo
+  state 606 (to 440) e1: current tracker is in use
+->undo
+  state 607 (to 409) e10: this container identifier already in tracker
+->undo
+  state 608 (to 408) e1: current tracker is in use
+->undo
+  state 609 (to 407) e1: current tracker is in use
+->redo
+  state 610 (to 408) e1: current tracker is in use
+->redo
+  state 611 (to 409) e10: this container identifier already in tracker
+->redo
+  state 612 (to 440) e1: current tracker is in use
+->redo
+  state 613 (to 471) e1: current tracker is in use
+->redo
+  state 614 (to 472) e1: current tracker is in use
+->redo
+  state 615 (to 533) e15: this container identifier not in tracker
+->redo
+  state 616 e20: there is no more to redo
+->redo
+  state 617 e20: there is no more to redo
+->redo
+  state 618 e20: there is no more to redo
+->redo
+  state 619 e20: there is no more to redo
+->redo
+  state 620 e20: there is no more to redo
+->redo
+  state 621 e20: there is no more to redo
+->undo
+  state 622 (to 472) e1: current tracker is in use
+->undo
+  state 623 (to 471) e1: current tracker is in use
+->undo
+  state 624 (to 440) e1: current tracker is in use
+->undo
+  state 625 (to 409) e10: this container identifier already in tracker
+->redo
+  state 626 (to 440) e1: current tracker is in use
+->redo
+  state 627 (to 471) e1: current tracker is in use
+->redo
+  state 628 (to 472) e1: current tracker is in use
+->redo
+  state 629 (to 533) e15: this container identifier not in tracker
+->redo
+  state 630 e20: there is no more to redo
+->redo
+  state 631 e20: there is no more to redo
+->redo
+  state 632 e20: there is no more to redo
+->redo
+  state 633 e20: there is no more to redo
+->redo
+  state 634 e20: there is no more to redo
+->redo
+  state 635 e20: there is no more to redo
+->redo
+  state 636 e20: there is no more to redo
+->redo
+  state 637 e20: there is no more to redo
+->redo
+  state 638 e20: there is no more to redo
+->redo
+  state 639 e20: there is no more to redo
+->move_container("cid4","pid1","pid2")
+  state 640 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+    cid4->pid2->metal,0.00
+->remove_container("cid4")
+  state 641 ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+->undo
+  state 642 (to 640) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+    cid4->pid2->metal,0.00
+->redo
+  state 643 (to 641) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+->undo
+  state 644 (to 640) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,1,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+    cid4->pid2->metal,0.00
+->redo
+  state 645 (to 641) ok
+  max_phase_radiation: 50.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->unpacking:2,1,5.50,{glass,metal,plastic,liquid}
+    pid2->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+    cid3->pid1->glass,5.50
+->remove_container("cid4")
+  state 646 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 647 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 648 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 649 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 650 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 651 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 652 e15: this container identifier not in tracker
+->remove_container("cid4")
+  state 653 e15: this container identifier not in tracker

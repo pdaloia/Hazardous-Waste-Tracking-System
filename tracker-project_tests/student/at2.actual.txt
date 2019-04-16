@@ -1,0 +1,32 @@
+  state 0 ok
+  max_phase_radiation: 0.00, max_container_radiation: 0.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_tracker(40,10)
+  state 1 ok
+  max_phase_radiation: 40.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+  containers: cid->pid->material,radioactivity
+->new_phase("#","compacting",2,<<glass, metal, plastic>>)
+  state 2 e5: identifiers/names must start with A-Z, a-z or 0..9
+->new_phase("3","$",2,<<glass, metal, plastic>>)
+  state 3 e5: identifiers/names must start with A-Z, a-z or 0..9
+->new_phase("pid1","compacting",2,<<glass, metal, plastic>>)
+  state 4 ok
+  max_phase_radiation: 40.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:2,0,0.00,{glass,metal,plastic}
+  containers: cid->pid->material,radioactivity
+->new_phase("pid1","assay",2,<<glass, metal, plastic>>)
+  state 5 e6: phase identifier already exists
+->new_phase("pid2","comp",0,<<glass, metal, plastic>>)
+  state 6 e7: phase capacity must be a positive integer
+->new_phase("pid2","comp",2,<<>>)
+  state 7 e8: there must be at least one expected material for this phase
+->new_phase("pid2","comp",2,<<glass>>)
+  state 8 ok
+  max_phase_radiation: 40.00, max_container_radiation: 10.00
+  phases: pid->name:capacity,count,radiation
+    pid1->compacting:2,0,0.00,{glass,metal,plastic}
+    pid2->comp:2,0,0.00,{glass}
+  containers: cid->pid->material,radioactivity
