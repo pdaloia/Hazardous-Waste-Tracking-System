@@ -1,0 +1,21 @@
+-- New Container errors
+
+new_tracker(40, 30)
+
+new_phase("pid1", "compacting", 1, <<glass, metal, plastic>>) 
+new_phase("pid2", "assay", 3, <<glass, metal, plastic, liquid>>) 
+new_phase("pid3", "comp-ass", 4, <<glass, liquid>>)
+
+new_container("", [metal,   0.0], "pid1") -- error e5
+new_container("cid1", [metal,   0.0], "pid4") -- error e9
+new_container("cid1", [metal,   10.0], "pid1") 
+new_container("cid1", [metal,   0.0], "pid1") -- error e10
+new_container("cid2", [metal,   -1.0], "pid1") -- error e10
+new_container("cid2", [metal,   0.0], "pid1") -- error e11
+new_container("cid2", [metal,   31.0], "pid3") -- error e14
+new_container("cid2", [glass,   10.0], "pid3") 
+new_container("cid3", [glass,   30], "pid3") 
+new_container("cid4", [liquid,   0.00], "pid3")
+new_container("cid5", [liquid,   0.0000000000001], "pid3") -- error e12
+new_container("cid5", [metal,   0.0000000000000], "pid3") -- error e13
+

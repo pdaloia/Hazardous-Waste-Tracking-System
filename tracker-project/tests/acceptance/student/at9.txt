@@ -1,0 +1,15 @@
+-- New Tracker errors
+
+new_tracker(39.0, 39.0)
+new_phase("pid3", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(-1,0) -- error e2
+new_tracker(1,-1) -- error e3
+new_tracker(-0,2) -- error e4
+new_container("cid4", [metal,   39], "pid3")
+new_tracker(39.0, 10.0) -- error e1
+
+-- New Phase errors
+new_phase("pid1", "compacting", 2, <<glass, metal, plastic>>) -- error e1
+
+
+

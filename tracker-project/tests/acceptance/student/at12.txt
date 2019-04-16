@@ -1,0 +1,36 @@
+-- Move - Remove Containers & Phases  errors
+
+new_tracker(40, 30)
+
+new_phase("pid1", "compacting", 1, <<glass, metal, plastic>>) 
+new_phase("pid2", "assay", 3, <<glass, metal, plastic>>) 
+new_phase("pid3", "comp-ass", 4, <<glass, liquid>>)
+new_phase("pid4", "comp-ass2", 2, <<glass, liquid>>)
+
+-- Remove Phases errors
+remove_phase ("pid5") -- error e9
+remove_phase ("pid4")
+
+new_container("cid1", [metal,   10.00000000001], "pid1") 
+new_container("cid2", [glass,   10.0], "pid3") 
+new_container("cid3", [glass,   30], "pid3") 
+new_container("cid4", [liquid,   0.00], "pid3")
+
+-- Move Container errors
+
+move_container ("cid5", "pid1", "pid2") -- error e15
+move_container ("cid1", "pid1", "pid1") -- error e16
+move_container ("cid1", "pid1", "Pid4") -- error e9
+move_container ("cid2", "pid1", "pid2") -- error e17
+move_container ("cid3", "pid3", "pid1") -- error e11
+move_container ("cid3", "pid3", "pid2") 
+move_container ("cid1", "pid1", "pid2") -- error e12
+move_container ("cid4", "pid3", "pid2") -- error e13
+
+-- Remove Containers errors
+
+remove_container ("cid5") -- error e15
+remove_container ("cid3") -- error e15
+
+-- Remove Phases errors
+remove_phase ("pid3") -- error e1

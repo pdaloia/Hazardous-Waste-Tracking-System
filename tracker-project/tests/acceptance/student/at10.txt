@@ -1,0 +1,12 @@
+-- New Phase errors
+
+new_tracker(40, 10)
+
+new_phase("#", "compacting", 2, <<glass, metal, plastic>>) -- error e5
+new_phase("3", "$", 2, <<glass, metal, plastic>>)  -- error e5
+new_phase("pid1", "compacting", 2, <<glass, metal, plastic>>) 
+new_phase("pid1", "assay", 2, <<glass, metal, plastic>>) -- error e6
+new_phase("pid2", "comp", 0, <<glass, metal, plastic>>) -- error e7
+new_phase("pid2", "comp", 2, <<>>) -- error e8
+new_phase("pid2", "comp", 2, <<glass>>) -- error e8
+

@@ -1,0 +1,654 @@
+undo
+new_tracker(50.0, 10.0)
+undo
+redo
+redo
+redo
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(50.0, 10.0)
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid4", [metal,   0.0], "pid1")
+new_container("cid1", [glass,   5.5], "pid1")
+new_tracker(50.0, 10.0)
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+move_container ("cid1", "pid1", "pid2")
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+new_tracker(40.00,4.00)
+new_phase("pid3", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid6", [glass,   5.5], "pid3")
+move_container ("cid1", "pid1", "pid2")
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+new_tracker(40.00,4.00)
+new_phase("pid41", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid3", [glass,   5.5], "pid1")
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+new_tracker(50.0, 10.0)
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(50.0, 10.0)
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid4", [metal,   0.0], "pid1")
+new_container("cid1", [glass,   5.5], "pid1")
+new_tracker(50.0, 10.0)
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+move_container ("cid1", "pid1", "pid2")
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+new_tracker(40.00,4.00)
+new_phase("pid3", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid6", [glass,   5.5], "pid3")
+move_container ("cid1", "pid1", "pid2")
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+new_tracker(40.00,4.00)
+new_phase("pid41", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid3", [glass,   5.5], "pid1")
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+new_tracker(50.0, 10.0)
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(50.0, 10.0)
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid4", [metal,   0.0], "pid1")
+new_container("cid1", [glass,   5.5], "pid1")
+new_tracker(50.0, 10.0)
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+move_container ("cid1", "pid1", "pid2")
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+new_tracker(40.00,4.00)
+new_phase("pid3", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid6", [glass,   5.5], "pid3")
+move_container ("cid1", "pid1", "pid2")
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+new_tracker(40.00,4.00)
+new_phase("pid41", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid3", [glass,   5.5], "pid1")
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+new_tracker(50.0, 10.0)
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(50.0, 10.0)
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid4", [metal,   0.0], "pid1")
+new_container("cid1", [glass,   5.5], "pid1")
+new_tracker(50.0, 10.0)
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+move_container ("cid1", "pid1", "pid2")
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+new_tracker(40.00,4.00)
+new_phase("pid3", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid6", [glass,   5.5], "pid3")
+move_container ("cid1", "pid1", "pid2")
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+new_tracker(40.00,4.00)
+new_phase("pid41", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid3", [glass,   5.5], "pid1")
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+new_tracker(50.0, 10.0)
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(50.0, 10.0)
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid4", [metal,   0.0], "pid1")
+new_container("cid1", [glass,   5.5], "pid1")
+new_tracker(50.0, 10.0)
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+move_container ("cid1", "pid1", "pid2")
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+new_tracker(40.00,4.00)
+new_phase("pid3", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid6", [glass,   5.5], "pid3")
+move_container ("cid1", "pid1", "pid2")
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+new_tracker(40.00,4.00)
+new_phase("pid41", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid3", [glass,   5.5], "pid1")
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+new_tracker(50.0, 10.0)
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+new_tracker(50.0, 10.0)
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid4", [metal,   0.0], "pid1")
+new_container("cid1", [glass,   5.5], "pid1")
+new_tracker(50.0, 10.0)
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+move_container ("cid1", "pid1", "pid2")
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+new_tracker(40.00,4.00)
+new_phase("pid3", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid6", [glass,   5.5], "pid3")
+move_container ("cid1", "pid1", "pid2")
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+new_tracker(40.00,4.00)
+new_phase("pid41", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+new_container("cid3", [glass,   5.5], "pid1")
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+move_container ("cid1", "pid1", "pid2")
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+redo
+undo 
+undo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+undo
+undo
+undo
+undo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+redo
+move_container ("cid4", "pid1", "pid2")
+remove_container("cid4")
+undo 
+redo
+undo
+redo
+remove_container("cid4")
+remove_container("cid4")
+remove_container("cid4")
+remove_container("cid4")
+remove_container("cid4")
+remove_container("cid4")
+remove_container("cid4")
+remove_container("cid4")
+

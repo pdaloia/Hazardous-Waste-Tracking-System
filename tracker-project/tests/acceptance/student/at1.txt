@@ -1,0 +1,26 @@
+-- Acceptance test for Tracker: at0.txt 
+-- ASCII comments may occur at the beginning or in the middle of a line.
+-- Very Basic Use Case to:
+--	set tracker radiation parameters
+--	create some phases
+--	add some containers
+--	move some containers
+
+-- Phases are sorted by pid
+-- Containers are sorted by cid
+-- Sorting follows normal lexicographic string rules,
+-- so that pid11 is before pid4; use pid04 if you want pid4 earlier. 
+
+-- create a new tracker
+-- max. radiation in a phase is 50.0
+-- max. radiation in a container is 10.0
+new_tracker(50.0, 10.0)
+remove_phase("pid1")
+remove_phase("pid4")
+
+-- add 2 phases each having a container handling capacity of 2:
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+remove_phase("pid1")
+remove_phase("pid4")
+
+

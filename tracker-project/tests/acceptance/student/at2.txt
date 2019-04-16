@@ -1,0 +1,52 @@
+new_tracker(50.0, 10.0)
+undo 
+redo
+undo
+redo
+new_phase("pid2", "compacting", 2, <<glass, metal, plastic>>)
+undo 
+redo
+undo
+redo
+new_tracker(50.0, 10.0)
+undo 
+redo
+undo
+redo
+new_phase("pid1", "unpacking", 2, <<glass, metal, plastic, liquid>>)
+undo 
+redo
+undo
+redo
+new_container("cid4", [metal,   0.0], "pid1")
+undo 
+redo
+undo
+redo
+new_container("cid1", [glass,   5.5], "pid1")
+undo 
+redo
+undo
+redo
+new_tracker(50.0, 10.0)
+undo 
+redo
+undo
+redo
+new_container("cid2", [liquid,  -0.5], "pid1") -- e11
+undo 
+redo
+undo
+redo
+move_container ("cid1", "pid1", "pid2")
+undo 
+redo
+undo
+redo
+move_container ("cid4", "pid1", "pid2")
+undo 
+redo
+undo
+redo
+
+
